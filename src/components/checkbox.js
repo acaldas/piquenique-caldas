@@ -39,7 +39,7 @@ const Checkbox = ({ onClick, name, value, label, selected, style }) => (
     }}
   >
     <input
-      type="radio"
+      type="hidden"
       name={name}
       value={value}
       checked={selected}

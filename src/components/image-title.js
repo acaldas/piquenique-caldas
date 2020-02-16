@@ -26,7 +26,13 @@ const TitleImage = () => {
     }
   `)
 
-  return <Img fluid={data.placeholderImage.childImageSharp.fluid} />
+  return (
+    <Img
+      fluid={data.placeholderImage.childImageSharp.fluid}
+      fadeIn={false}
+      loading="eager"
+    />
+  )
 }
 
 export default TitleImage
