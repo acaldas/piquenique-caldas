@@ -15,6 +15,7 @@ const Contact = ({ name, number, style }) => (
   <div
     style={{
       display: "flex",
+      maxWidth: 600,
       background: colors.white,
       border: colors.border,
       flexDirection: "row",

@@ -37,7 +37,7 @@ module.exports = {
       resolve: "gatsby-plugin-web-font-loader",
       options: {
         google: {
-          families: ["Open Sans", "Open Sans Condensed"],
+          families: ["Open Sans", "Open Sans Condensed", "Cookie"],
         },
       },
     },

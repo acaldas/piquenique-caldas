@@ -38,12 +38,12 @@ const StyledAccordionItem = styled(AccordionItem)`
 `
 
 const Title = styled.div`
-  flex-direction: column;
+  flex-direction: "column";
   margin-bottom: 0;
   background-color: ${colors.dark};
   flex-grow: 1;
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
   text-align: center;
   width: 100%;
@@ -55,6 +55,7 @@ const Rectangle = styled.div`
   height: 14px;
   transform: rotate(-45deg);
   background-color: #cfdd00;
+  flex-shrink: 0;
 `
 
 const DateText = styled.h2`
@@ -80,7 +81,7 @@ const Footer = styled.div`
   padding-bottom: 40px;
 `
 
-const Layout = ({ children }) => {
+const Layout = () => {
   const [openIndex, setOpenIndex] = useState()
   const setIndexCallback = useCallback(
     index => {
@@ -96,13 +97,25 @@ const Layout = ({ children }) => {
           <div style={{ marginBottom: 40, width: 203, height: 46 }}>
             <YearImage />
           </div>
-          <h3 style={{ marginBottom: 0 }}>
-            <i>~ Premium Edition ~</i>
+          <h3
+            style={{
+              marginBottom: 0,
+              fontFamily: "Cookie",
+              fontSize: 85,
+              fontWeight: "normal",
+              display: "flex",
+              flexWrap: "wrap",
+              justifyContent: "center",
+            }}
+          >
+            <i>~</i>
+            <i style={{ padding: "0 30px" }}>Premium Edition</i>
+            <i>~</i>
           </h3>
         </Footer>
       </Section>
       <RightSection grow={openIndex === 1 ? 3 : 1}>
-        <Title>
+        <Title grow={openIndex === 1 ? 3 : 1}>
           <div style={{ width: "100%", marginBottom: 44 }}>
             <TitleImage />
           </div>
@@ -111,6 +124,7 @@ const Layout = ({ children }) => {
               display: "flex",
               flexDirection: "row",
               alignItems: "center",
+              marginBottom: 44,
             }}
           >
             <Rectangle />
@@ -164,10 +178,6 @@ const Layout = ({ children }) => {
       </RightSection>
     </Container>
   )
-}
-
-Layout.propTypes = {
-  children: PropTypes.node.isRequired,
 }
 
 export default Layout

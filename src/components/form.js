@@ -46,10 +46,15 @@ const Form = () => {
         method="POST"
         data-netlify="true"
         data-netlify-honeypot="bot-field"
-        style={{ paddingTop: 24, flexDirection: "row", display: "flex" }}
+        style={{
+          paddingTop: 24,
+          flexDirection: "row",
+          display: "flex",
+          flexWrap: "wrap",
+        }}
       >
         <input type="hidden" name="form-name" value="rsvp" />
-        <div>
+        <div style={{ marginRight: 60 }}>
           <div style={{ display: "flex", flexDirection: "row" }}>
             <Checkbox
               label="Claro que sim!"
@@ -111,7 +116,7 @@ const Form = () => {
             />
           </div>
         </div>
-        <Button type="submit" style={{ alignSelf: "flex-end", marginLeft: 60 }}>
+        <Button type="submit" style={{ alignSelf: "flex-end", marginTop: 60 }}>
           Enviar
         </Button>
       </form>

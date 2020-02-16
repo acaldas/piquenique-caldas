@@ -42,7 +42,7 @@ const Checkbox = ({ onClick, name, value, label, selected, style }) => (
       type="hidden"
       name={name}
       value={value}
-      checked={selected}
+      defaultChecked={selected}
       style={{ display: "hidden" }}
     />
     <Circle>
