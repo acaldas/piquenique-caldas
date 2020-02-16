@@ -1,14 +1,19 @@
 import React, { useState, useEffect } from "react"
 import styled from "styled-components"
+import ArrowImage from "./image-arrow"
 
 const Header = styled.header`
   cursor: ${props => (props.enable ? "pointer" : "auto")};
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 `
 
 const HeaderText = styled.h2`
   font-size: 48px;
   font-weight: bold;
   font-stretch: condensed;
+  margin-bottom: 0px;
 `
 const Content = styled.div`
   overflow: hidden;
@@ -33,6 +38,9 @@ export const AccordionItem = ({
         <HeaderText style={{ opacity: children ? 1 : 0.65 }}>
           {title}
         </HeaderText>
+        <div style={{ transform: open ? "rotateZ(90deg)" : "rotateZ(0)" }}>
+          <ArrowImage />
+        </div>
       </Header>
       <Content open={open}>{children}</Content>
     </article>
