@@ -9,10 +9,14 @@ import React, { useState, useCallback } from "react"
 import PropTypes from "prop-types"
 import styled from "styled-components"
 import Section from "./section"
+import Contact from "./contact"
 import { Accordion, AccordionItem } from "./accordion"
 import "./layout.css"
 import { colors } from "../constants"
-import Image from "./image"
+import MainImage from "./image-main"
+import YearImage from "./image-year"
+import TitleImage from "./image-title"
+import Form from "./form"
 
 const Container = styled.main`
   height: 100%;
@@ -22,18 +26,19 @@ const Container = styled.main`
   align-items: stretch;
 `
 
-const StyledAccordion = styled(Accordion)`
+const RightSection = styled(Section)`
   border-left: ${colors.border};
 `
 
 const StyledAccordionItem = styled(AccordionItem)`
   border-top: ${colors.border};
   background-color: ${props => props.background};
-  color: ${colors.dark};
-  padding: 20px;
+  color: ${colors.headingColor};
+  padding: 32px 52px;
 `
 
-const Title = styled.h1`
+const Title = styled.div`
+  flex-direction: column;
   margin-bottom: 0;
   background-color: ${colors.dark};
   flex-grow: 1;
@@ -41,6 +46,24 @@ const Title = styled.h1`
   justify-content: center;
   align-items: center;
   text-align: center;
+  width: 100%;
+  padding: 60px;
+`
+
+const Rectangle = styled.div`
+  width: 14px;
+  height: 14px;
+  transform: rotate(-45deg);
+  background-color: #cfdd00;
+`
+
+const DateText = styled.h2`
+  color: ${colors.white};
+  font-size: 56px;
+  font-weight: 800;
+  margin-bottom: 0;
+  margin-right: 24px;
+  margin-left: 24px;
 `
 
 const Footer = styled.div`
@@ -68,20 +91,34 @@ const Layout = ({ children }) => {
   return (
     <Container>
       <Section grow={1}>
-        <Image onClick={() => setIndexCallback(0)} />
+        <MainImage onClick={() => setIndexCallback(0)} />
         <Footer>
-          <h3 style={{ marginBottom: 40 }}>2020</h3>
+          <div style={{ marginBottom: 40, width: 203, height: 46 }}>
+            <YearImage />
+          </div>
           <h3 style={{ marginBottom: 0 }}>
             <i>~ Premium Edition ~</i>
           </h3>
         </Footer>
       </Section>
-      <Section grow={openIndex === 1 ? 3 : 1}>
+      <RightSection grow={openIndex === 1 ? 3 : 1}>
         <Title>
-          Piquenique
-          <br /> CALDAS
+          <div style={{ width: "100%", marginBottom: 44 }}>
+            <TitleImage />
+          </div>
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "row",
+              alignItems: "center",
+            }}
+          >
+            <Rectangle />
+            <DateText>30 de MAIO</DateText>
+            <Rectangle />
+          </div>
         </Title>
-        <StyledAccordion
+        <Accordion
           style={{ borderLeft: colors.border }}
           open={openIndex === 1}
           onOpen={() => setIndexCallback(1)}
@@ -91,22 +128,40 @@ const Layout = ({ children }) => {
             title="Vens ao piquenique?"
             background={colors.medium}
           >
-            <div style={{ height: 300 }}>Teste</div>
+            <Form />
           </StyledAccordionItem>
           <StyledAccordionItem
-            title="Local (proximamente)"
+            title="Local (brevemente)"
             background={colors.light}
           />
           <StyledAccordionItem
-            title="Agenda (proximamente)"
+            title="Agenda (brevemente)"
             background={colors.lighter}
           />
-          <StyledAccordionItem
-            title="??? (proximamente)"
-            background={colors.orange}
-          />
-        </StyledAccordion>
-      </Section>
+          <StyledAccordionItem title="Contactos" background={colors.orange}>
+            <Contact
+              name="ines"
+              number="91 437 79 65"
+              style={{ marginTop: 30 }}
+            />
+            <Contact
+              name="sara"
+              number="91 485 68 64"
+              style={{ marginTop: 24 }}
+            />
+            <Contact
+              name="tomas"
+              number="92 530 20 24"
+              style={{ marginTop: 24 }}
+            />
+            <Contact
+              name="afonso"
+              number="91 887 53 45"
+              style={{ marginTop: 24 }}
+            />
+          </StyledAccordionItem>
+        </Accordion>
+      </RightSection>
     </Container>
   )
 }

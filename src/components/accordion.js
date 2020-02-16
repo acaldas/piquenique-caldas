@@ -4,6 +4,12 @@ import styled from "styled-components"
 const Header = styled.header`
   cursor: ${props => (props.enable ? "pointer" : "auto")};
 `
+
+const HeaderText = styled.h2`
+  font-size: 48px;
+  font-weight: bold;
+  font-stretch: condensed;
+`
 const Content = styled.div`
   overflow: hidden;
   height: ${props => (props.open ? "auto" : 0)};
@@ -24,7 +30,9 @@ export const AccordionItem = ({
         onClick={() => onToggle(!!children)}
         role="menuitem"
       >
-        <h2>{title}</h2>
+        <HeaderText style={{ opacity: children ? 1 : 0.65 }}>
+          {title}
+        </HeaderText>
       </Header>
       <Content open={open}>{children}</Content>
     </article>
