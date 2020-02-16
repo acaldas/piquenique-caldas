@@ -40,62 +40,81 @@ const Form = () => {
   const [email, setEmail] = useState("")
 
   return (
-    <div style={{ paddingTop: 24, flexDirection: "row", display: "flex" }}>
-      <div>
-        <div style={{ display: "flex", flexDirection: "row" }}>
-          <Checkbox
-            label="Claro que sim!"
-            style={{ marginRight: 64 }}
-            selected={yes}
-            onClick={() => setYes(true)}
-          />
-          <Checkbox
-            label="Este ano não posso ☹️"
-            selected={yes === false}
-            onClick={() => setYes(false)}
-          />
-        </div>
-        <HeaderText style={{ marginTop: 40 }}>
-          Quantas pessoas trazes?
-        </HeaderText>
-        <TextField
-          value={persons}
-          onChange={setPersons}
-          placeholder="Não te esqueças de contar contigo"
-          style={{ display: "block", width: "100%" }}
-        />
-        <HeaderText style={{ marginTop: 40 }}>Diz-nos quem és</HeaderText>
-        <TextField
-          value={name}
-          onChange={setName}
-          placeholder="Nome"
-          style={{ display: "block", width: "100%" }}
-        />
-        <div
-          style={{
-            display: "flex",
-            flexDirection: "row",
-            justifyContent: "space-between",
-            marginTop: 40,
-          }}
-        >
+    <div>
+      <form
+        name="rsvp"
+        method="POST"
+        data-netlify="true"
+        data-netlify-honeypot="bot-field"
+        style={{ paddingTop: 24, flexDirection: "row", display: "flex" }}
+      >
+        <input type="hidden" name="form-name" value="rsvp" />
+        <div>
+          <div style={{ display: "flex", flexDirection: "row" }}>
+            <Checkbox
+              label="Claro que sim!"
+              style={{ marginRight: 64 }}
+              selected={yes}
+              name="presença"
+              value="sim"
+              onClick={() => setYes(true)}
+            />
+            <Checkbox
+              label="Este ano não posso ☹️"
+              name="presença"
+              value="não"
+              selected={yes === false}
+              onClick={() => setYes(false)}
+            />
+          </div>
+          <HeaderText style={{ marginTop: 40 }}>
+            Quantas pessoas trazes?
+          </HeaderText>
           <TextField
-            type="tel"
-            value={phone}
-            onChange={setPhone}
-            placeholder="Telemóvel"
-            style={{ display: "block", width: "35%" }}
+            name="pessoas"
+            value={persons}
+            onChange={setPersons}
+            placeholder="Não te esqueças de contar contigo"
+            style={{ display: "block", width: "100%" }}
           />
+          <HeaderText style={{ marginTop: 40 }}>Diz-nos quem és</HeaderText>
           <TextField
-            type="email"
-            value={email}
-            onChange={setEmail}
-            placeholder="Email"
-            style={{ display: "block", width: "60%" }}
+            name="nome"
+            value={name}
+            onChange={setName}
+            placeholder="Nome"
+            style={{ display: "block", width: "100%" }}
           />
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "row",
+              justifyContent: "space-between",
+              marginTop: 40,
+            }}
+          >
+            <TextField
+              name="telefone"
+              type="tel"
+              value={phone}
+              onChange={setPhone}
+              placeholder="Telemóvel"
+              style={{ display: "block", width: "35%" }}
+            />
+            <TextField
+              name="email"
+              type="email"
+              value={email}
+              onChange={setEmail}
+              placeholder="Email"
+              style={{ display: "block", width: "60%" }}
+            />
+          </div>
         </div>
-      </div>
-      <Button style={{ alignSelf: "flex-end", marginLeft: 60 }}>Enviar</Button>
+        <Button type="submit" style={{ alignSelf: "flex-end", marginLeft: 60 }}>
+          Enviar
+        </Button>
+      </form>
     </div>
   )
 }

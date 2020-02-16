@@ -27,7 +27,7 @@ const InnerCircle = styled.div`
   background-color: ${props => (props.selected ? colors.white : "transparent")};
 `
 
-const Checkbox = ({ onClick, label, selected, style }) => (
+const Checkbox = ({ onClick, name, value, label, selected, style }) => (
   <div
     onClick={onClick}
     style={{
@@ -38,6 +38,13 @@ const Checkbox = ({ onClick, label, selected, style }) => (
       ...style,
     }}
   >
+    <input
+      type="radio"
+      name={name}
+      value={value}
+      checked={selected}
+      style={{ display: "hidden" }}
+    />
     <Circle>
       <InnerCircle selected={selected} />
     </Circle>
