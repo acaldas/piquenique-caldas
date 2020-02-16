@@ -6,7 +6,6 @@
  */
 
 import React, { useState, useCallback } from "react"
-import PropTypes from "prop-types"
 import styled from "styled-components"
 import Section from "./section"
 import Contact from "./contact"
@@ -38,16 +37,16 @@ const StyledAccordionItem = styled(AccordionItem)`
 `
 
 const Title = styled.div`
-  flex-direction: "column";
+  flex-direction: ${props => (props.grow ? "row" : "column")};
   margin-bottom: 0;
   background-color: ${colors.dark};
   flex-grow: 1;
   display: flex;
-  justify-content: space-between;
+  justify-content: space-evenly;
   align-items: center;
   text-align: center;
   width: 100%;
-  padding: 60px;
+  padding: ${props => (props.grow ? "32px" : "32px 260px")};
 `
 
 const Rectangle = styled.div`
@@ -115,8 +114,14 @@ const Layout = () => {
         </Footer>
       </Section>
       <RightSection grow={openIndex === 1 ? 3 : 1}>
-        <Title grow={openIndex === 1 ? 3 : 1}>
-          <div style={{ width: "100%", marginBottom: 44 }}>
+        <Title grow={openIndex === 1}>
+          <div
+            style={{
+              width: openIndex === 1 ? "35%" : "100%",
+              marginBottom: openIndex === 1 ? 0 : 44,
+              marginRight: openIndex === 1 ? 32 : 0,
+            }}
+          >
             <TitleImage />
           </div>
           <div
@@ -124,7 +129,6 @@ const Layout = () => {
               display: "flex",
               flexDirection: "row",
               alignItems: "center",
-              marginBottom: 44,
             }}
           >
             <Rectangle />
