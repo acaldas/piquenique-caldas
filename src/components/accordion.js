@@ -36,10 +36,11 @@ export const AccordionItem = ({
   children,
   ...props
 }) => {
+  const enabled = !!children
   return (
     <article {...props}>
       <Header
-        enable={!!children}
+        enable={enabled}
         onClick={() => onToggle(!!children)}
         role="menuitem"
       >
@@ -52,7 +53,7 @@ export const AccordionItem = ({
             display: "flex",
           }}
         >
-          <ArrowImage />
+          {enabled && <ArrowImage />}
         </div>
       </Header>
       <Content open={open}>{children}</Content>
