@@ -5,7 +5,7 @@ import Checkbox from "./checkbox"
 import TextField from "./textfield"
 
 const HeaderText = styled.h2`
-  ${breakpoints.textLg}
+  ${breakpoints.textMd}
   font-weight: bold;
   font-stretch: condensed;
   margin-bottom: 0;
@@ -13,7 +13,7 @@ const HeaderText = styled.h2`
 
 const Container = styled.div`
   margin-right: 60px;
-  ${breakpoints.mobile} {
+  ${breakpoints.tablet} {
     margin-right: 0px;
   }
 `
@@ -23,7 +23,7 @@ const PhoneTextField = styled(TextField)`
   display: block;
   width: 35%;
 
-  ${breakpoints.mobile} {
+  ${breakpoints.tablet} {
     width: 100%;
   }
 `
@@ -33,7 +33,7 @@ const EmailTextField = styled(TextField)`
   display: block;
   width: 60%;
 
-  ${breakpoints.mobile} {
+  ${breakpoints.tablet} {
     width: 100%;
   }
 `

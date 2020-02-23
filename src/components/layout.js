@@ -24,20 +24,24 @@ const Container = styled.main`
   flex-direction: row;
   align-items: stretch;
 
-  ${breakpoints.mobile} {
+  ${breakpoints.tablet} {
     display: block;
     flex-direction: column;
   }
 `
 
 const StyledMainImage = styled(MainImage)`
-  ${breakpoints.mobile} {
+  ${breakpoints.tablet} {
     height: 300px;
   }
 `
 
 const RightSection = styled(Section)`
   border-left: ${colors.border};
+
+  ${breakpoints.tablet} {
+    border-left: none;
+  }
 `
 
 const StyledAccordionItem = styled(AccordionItem)`
@@ -46,8 +50,12 @@ const StyledAccordionItem = styled(AccordionItem)`
   color: ${colors.headingColor};
   padding: 32px 52px;
 
-  ${breakpoints.mobile} {
+  ${breakpoints.tablet} {
     padding: 32px;
+  }
+
+  ${breakpoints.mobile} {
+    padding: 24px;
   }
 `
 
@@ -68,8 +76,12 @@ const Title = styled.div`
   transition-timing-function: cubic-bezier(0.895, 0.03, 0.685, 0.22);
   transition-duration: 0.25s;
 
-  ${breakpoints.mobile} {
+  ${breakpoints.tablet} {
     min-height: 314px;
+  }
+
+  ${breakpoints.mobile} {
+    min-height: 260px;
   }
 `
 
@@ -79,9 +91,13 @@ const TitleImageContainer = styled.div`
   max-height: calc(${props => (props.open ? 100 : 60)}% - 64px);
   max-width: calc(100% - 64px);
 
-  ${breakpoints.mobile} {
+  ${breakpoints.tablet} {
     max-height: calc(100% - 64px);
     width: 525px;
+  }
+
+  ${breakpoints.mobile} {
+    margin: 24px;
   }
 `
 
@@ -91,6 +107,16 @@ const Rectangle = styled.div`
   transform: rotate(-45deg);
   background-color: #cfdd00;
   flex-shrink: 0;
+`
+
+const DateTextContainer = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin: 32px 0px;
+  ${breakpoints.mobile} {
+    margin: 24px 0px;
+  }
 `
 
 const DateText = styled.h2`
@@ -115,8 +141,11 @@ const Footer = styled.div`
   text-align: center;
   border-top: ${colors.border};
   flex-direction: column;
-  padding-top: 40px;
-  padding-bottom: 40px;
+  padding: 40px 4px;
+
+  ${breakpoints.mobile} {
+    padding: 20px 2px;
+  }
 `
 
 const PremiumText = styled.h3`
@@ -128,8 +157,20 @@ const PremiumText = styled.h3`
   flex-wrap: wrap;
   justify-content: center;
 
-  ${breakpoints.mobile} {
+  ${breakpoints.tablet} {
     font-size: 64px;
+  }
+
+  ${breakpoints.mobile} {
+    font-size: 54px;
+  }
+`
+
+const PremiumTextValue = styled.i`
+  padding: 0 30px;
+
+  ${breakpoints.mobile} {
+    padding: 0 14px;
   }
 `
 
@@ -144,19 +185,14 @@ const Layout = () => {
   return (
     <Container>
       <Section grow={1}>
-        <StyledMainImage
-          onClick={() => setIndexCallback(0)}
-          imgStyle={{
-            objectPosition: "0px -20px",
-          }}
-        />
+        <StyledMainImage onClick={() => setIndexCallback(0)} />
         <Footer>
           <div style={{ marginBottom: 40, width: 203, height: 46 }}>
             <YearImage />
           </div>
           <PremiumText>
             <i>~</i>
-            <i style={{ padding: "0 30px" }}>Premium Edition</i>
+            <PremiumTextValue>Premium Edition</PremiumTextValue>
             <i>~</i>
           </PremiumText>
         </Footer>
@@ -169,18 +205,11 @@ const Layout = () => {
               imgStyle={{ objectFit: "contain" }}
             />
           </TitleImageContainer>
-          <div
-            style={{
-              display: "flex",
-              flexDirection: "row",
-              alignItems: "center",
-              margin: "32px 0px",
-            }}
-          >
+          <DateTextContainer>
             <Rectangle />
             <DateText open={openIndex === 1}>30 de MAIO</DateText>
             <Rectangle />
-          </div>
+          </DateTextContainer>
         </Title>
         <Accordion
           style={{ borderLeft: colors.border }}

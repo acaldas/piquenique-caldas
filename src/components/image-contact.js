@@ -13,7 +13,7 @@ import Img from "gatsby-image"
  * - `useStaticQuery`: https://www.gatsbyjs.org/docs/use-static-query/
  */
 
-const ContactImage = ({ name }) => {
+const ContactImage = ({ name, ...props }) => {
   const data = useStaticQuery(graphql`
     query {
       ines: file(relativePath: { eq: "ines-2x.jpg" }) {
@@ -47,7 +47,7 @@ const ContactImage = ({ name }) => {
     }
   `)
 
-  return <Img fixed={data[name].childImageSharp.fixed} />
+  return <Img fixed={data[name].childImageSharp.fixed} {...props} />
 }
 
 export default ContactImage

@@ -1,8 +1,7 @@
-import React, { useState, useEffect, useRef } from "react"
+import React, { useState, useEffect } from "react"
 import styled from "styled-components"
 import ArrowImage from "./image-arrow"
 import { breakpoints } from "../constants"
-import useScrollTo from "../hooks/useScrollTo"
 
 const Header = styled.header`
   cursor: ${props => (props.enable ? "pointer" : "auto")};
@@ -25,7 +24,7 @@ const Content = styled.div`
   transition-property: max-height, transform;
   max-height: ${props => (props.open ? "100rem" : "0rem")};
 
-  ${breakpoints.mobile} {
+  ${breakpoints.tablet} {
     transition-delay: 0s;
   }
 `
