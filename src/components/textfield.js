@@ -1,5 +1,5 @@
 import React from "react"
-import { colors } from "../constants"
+import { colors, breakpoints } from "../constants"
 import styled from "styled-components"
 
 const Input = styled.input`
@@ -14,7 +14,7 @@ const Input = styled.input`
   border: none;
   color: ${colors.white};
   padding: 21px 16px;
-  font-size: 32px;
+  ${breakpoints.textSm}
   font-weight: 600;
   border-bottom: 4px solid ${colors.white};
 

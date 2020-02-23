@@ -1,6 +1,8 @@
-import React, { useState, useEffect } from "react"
+import React, { useState, useEffect, useRef } from "react"
 import styled from "styled-components"
 import ArrowImage from "./image-arrow"
+import { breakpoints } from "../constants"
+import useScrollTo from "../hooks/useScrollTo"
 
 const Header = styled.header`
   cursor: ${props => (props.enable ? "pointer" : "auto")};
@@ -10,15 +12,22 @@ const Header = styled.header`
 `
 
 const HeaderText = styled.h2`
-  font-size: 48px;
+  ${breakpoints.textMd}
   font-weight: bold;
   font-stretch: condensed;
   margin-bottom: 0px;
 `
 const Content = styled.div`
   overflow: hidden;
-  height: ${props => (props.open ? "auto" : 0)};
-  transition: height 0.26s ease;
+  transition-timing-function: ease;
+  transition-duration: 0.35s;
+  transition-delay: ${props => (props.open ? "0s" : "0.25s")};
+  transition-property: max-height, transform;
+  max-height: ${props => (props.open ? "100rem" : "0rem")};
+
+  ${breakpoints.mobile} {
+    transition-delay: 0s;
+  }
 `
 
 export const AccordionItem = ({
@@ -38,7 +47,12 @@ export const AccordionItem = ({
         <HeaderText style={{ opacity: children ? 1 : 0.65 }}>
           {title}
         </HeaderText>
-        <div style={{ transform: open ? "rotateZ(90deg)" : "rotateZ(0)" }}>
+        <div
+          style={{
+            transform: open ? "rotateZ(90deg)" : "rotateZ(0)",
+            display: "flex",
+          }}
+        >
           <ArrowImage />
         </div>
       </Header>
@@ -72,8 +86,9 @@ export const Accordion = ({ className, open, onOpen, onClose, children }) => {
         <ListItem key={index}>
           {React.cloneElement(child, {
             open: index === openIndex,
-            onToggle: enabled =>
-              setOpenIndex(openIndex === index || !enabled ? undefined : index),
+            onToggle: enabled => {
+              setOpenIndex(openIndex === index || !enabled ? undefined : index)
+            },
           })}
         </ListItem>
       ))}

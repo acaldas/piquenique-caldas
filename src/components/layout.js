@@ -11,7 +11,7 @@ import Section from "./section"
 import Contact from "./contact"
 import { Accordion, AccordionItem } from "./accordion"
 import "./layout.css"
-import { colors } from "../constants"
+import { colors, breakpoints } from "../constants"
 import MainImage from "./image-main"
 import YearImage from "./image-year"
 import TitleImage from "./image-title"
@@ -23,6 +23,17 @@ const Container = styled.main`
   display: flex;
   flex-direction: row;
   align-items: stretch;
+
+  ${breakpoints.mobile} {
+    display: block;
+    flex-direction: column;
+  }
+`
+
+const StyledMainImage = styled(MainImage)`
+  ${breakpoints.mobile} {
+    height: 300px;
+  }
 `
 
 const RightSection = styled(Section)`
@@ -34,19 +45,44 @@ const StyledAccordionItem = styled(AccordionItem)`
   background-color: ${props => props.background};
   color: ${colors.headingColor};
   padding: 32px 52px;
+
+  ${breakpoints.mobile} {
+    padding: 32px;
+  }
 `
 
 const Title = styled.div`
-  flex-direction: ${props => (props.grow ? "row" : "column")};
+  flex-direction: column;
   margin-bottom: 0;
   background-color: ${colors.dark};
   flex-grow: 1;
+  flex-wrap: wrap;
   display: flex;
   justify-content: space-evenly;
   align-items: center;
   text-align: center;
   width: 100%;
-  padding: ${props => (props.grow ? "32px" : "32px 260px")};
+  height: ${props => (props.open ? "20%" : "40%")};
+  min-height: ${props => (props.open ? "auto" : "314px")};
+  transition-property: height, min-height;
+  transition-timing-function: cubic-bezier(0.895, 0.03, 0.685, 0.22);
+  transition-duration: 0.25s;
+
+  ${breakpoints.mobile} {
+    min-height: 314px;
+  }
+`
+
+const TitleImageContainer = styled.div`
+  width: ${props => (props.open ? "400px" : "525px")};
+  margin: 32px;
+  max-height: calc(${props => (props.open ? 100 : 60)}% - 64px);
+  max-width: calc(100% - 64px);
+
+  ${breakpoints.mobile} {
+    max-height: calc(100% - 64px);
+    width: 525px;
+  }
 `
 
 const Rectangle = styled.div`
@@ -59,11 +95,14 @@ const Rectangle = styled.div`
 
 const DateText = styled.h2`
   color: ${colors.white};
-  font-size: 56px;
+  ${breakpoints.textXl};
   font-weight: 800;
   margin-bottom: 0;
   margin-right: 24px;
   margin-left: 24px;
+  transition-property: font-size;
+  transition-timing-function: cubic-bezier(0.895, 0.03, 0.685, 0.22);
+  transition-duration: 0.25s;
 `
 
 const Footer = styled.div`
@@ -80,6 +119,20 @@ const Footer = styled.div`
   padding-bottom: 40px;
 `
 
+const PremiumText = styled.h3`
+  margin-bottom: 0;
+  font-family: "Cookie";
+  font-size: 85px;
+  font-weight: normal;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+
+  ${breakpoints.mobile} {
+    font-size: 64px;
+  }
+`
+
 const Layout = () => {
   const [openIndex, setOpenIndex] = useState()
   const setIndexCallback = useCallback(
@@ -91,48 +144,41 @@ const Layout = () => {
   return (
     <Container>
       <Section grow={1}>
-        <MainImage onClick={() => setIndexCallback(0)} />
+        <StyledMainImage
+          onClick={() => setIndexCallback(0)}
+          imgStyle={{
+            objectPosition: "0px -20px",
+          }}
+        />
         <Footer>
           <div style={{ marginBottom: 40, width: 203, height: 46 }}>
             <YearImage />
           </div>
-          <h3
-            style={{
-              marginBottom: 0,
-              fontFamily: "Cookie",
-              fontSize: 85,
-              fontWeight: "normal",
-              display: "flex",
-              flexWrap: "wrap",
-              justifyContent: "center",
-            }}
-          >
+          <PremiumText>
             <i>~</i>
             <i style={{ padding: "0 30px" }}>Premium Edition</i>
             <i>~</i>
-          </h3>
+          </PremiumText>
         </Footer>
       </Section>
       <RightSection grow={openIndex === 1 ? 3 : 1}>
-        <Title grow={openIndex === 1}>
-          <div
-            style={{
-              width: openIndex === 1 ? "35%" : "100%",
-              marginBottom: openIndex === 1 ? 0 : 44,
-              marginRight: openIndex === 1 ? 32 : 0,
-            }}
-          >
-            <TitleImage />
-          </div>
+        <Title open={openIndex === 1}>
+          <TitleImageContainer open={openIndex === 1}>
+            <TitleImage
+              style={{ maxHeight: "100%" }}
+              imgStyle={{ objectFit: "contain" }}
+            />
+          </TitleImageContainer>
           <div
             style={{
               display: "flex",
               flexDirection: "row",
               alignItems: "center",
+              margin: "32px 0px",
             }}
           >
             <Rectangle />
-            <DateText>30 de MAIO</DateText>
+            <DateText open={openIndex === 1}>30 de MAIO</DateText>
             <Rectangle />
           </div>
         </Title>

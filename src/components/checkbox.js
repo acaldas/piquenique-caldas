@@ -1,10 +1,10 @@
 import React from "react"
-import { colors } from "../constants"
+import { colors, breakpoints } from "../constants"
 import styled from "styled-components"
 
 const Label = styled.h4`
   color: ${colors.white};
-  font-size: 32px;
+  ${breakpoints.textSm}
   font-weight: bold;
   margin-left: 18px;
 `

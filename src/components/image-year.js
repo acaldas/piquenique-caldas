@@ -13,7 +13,7 @@ import Img from "gatsby-image"
  * - `useStaticQuery`: https://www.gatsbyjs.org/docs/use-static-query/
  */
 
-export const YearImage = () => {
+export const YearImage = props => {
   const data = useStaticQuery(graphql`
     query {
       placeholderImage: file(relativePath: { eq: "2020-2x.png" }) {
@@ -28,6 +28,7 @@ export const YearImage = () => {
 
   return (
     <Img
+      {...props}
       fluid={data.placeholderImage.childImageSharp.fluid}
       fadeIn={false}
       loading="eager"

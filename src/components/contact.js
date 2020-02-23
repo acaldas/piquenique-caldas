@@ -1,14 +1,18 @@
 import React from "react"
-import { colors } from "../constants"
+import { colors, breakpoints } from "../constants"
 import styled from "styled-components"
 import ContactImage from "./image-contact"
 
 const Text = styled.h2`
   color: ${colors.headingColor};
-  font-size: 48px;
+  ${breakpoints.textLg}
   font-weight: bold;
   padding: 32px 36px;
-  border-left: ${colors.border};
+
+  ${breakpoints.mobile} {
+    padding: 16px 18px;
+    ${breakpoints.textMd}
+  }
 `
 
 const Contact = ({ name, number, style }) => (
@@ -23,7 +27,16 @@ const Contact = ({ name, number, style }) => (
     }}
   >
     <ContactImage name={name} />
-    <Text>{number}</Text>
+    <div
+      style={{
+        borderLeft: colors.border,
+        alignItems: "center",
+        flexFrow: 1,
+        display: "flex",
+      }}
+    >
+      <Text>{number}</Text>
+    </div>
   </div>
 )
 

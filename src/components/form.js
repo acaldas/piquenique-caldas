@@ -1,14 +1,41 @@
 import React, { useState } from "react"
-import { colors } from "../constants"
+import { colors, breakpoints } from "../constants"
 import styled from "styled-components"
 import Checkbox from "./checkbox"
 import TextField from "./textfield"
 
 const HeaderText = styled.h2`
-  font-size: 48px;
+  ${breakpoints.textLg}
   font-weight: bold;
   font-stretch: condensed;
   margin-bottom: 0;
+`
+
+const Container = styled.div`
+  margin-right: 60px;
+  ${breakpoints.mobile} {
+    margin-right: 0px;
+  }
+`
+
+const PhoneTextField = styled(TextField)`
+  margin-top: 20px;
+  display: block;
+  width: 35%;
+
+  ${breakpoints.mobile} {
+    width: 100%;
+  }
+`
+
+const EmailTextField = styled(TextField)`
+  margin-top: 20px;
+  display: block;
+  width: 60%;
+
+  ${breakpoints.mobile} {
+    width: 100%;
+  }
 `
 
 const Button = styled.button`
@@ -22,7 +49,7 @@ const Button = styled.button`
   background-color: ${colors.white};
   color: ${colors.medium};
   padding: 13px 50px;
-  font-size: 40px;
+  ${breakpoints.textMd};
   font-weight: bold;
   font-stretch: condensed;
   cursor: pointer;
@@ -54,11 +81,13 @@ const Form = () => {
         }}
       >
         <input type="hidden" name="form-name" value="rsvp" />
-        <div style={{ marginRight: 60 }}>
-          <div style={{ display: "flex", flexDirection: "row" }}>
+        <Container>
+          <div
+            style={{ display: "flex", flexDirection: "row", flexWrap: "wrap" }}
+          >
             <Checkbox
               label="Claro que sim!"
-              style={{ marginRight: 64 }}
+              style={{ marginRight: 64, marginTop: 12 }}
               selected={yes}
               name="presença"
               value="sim"
@@ -66,6 +95,7 @@ const Form = () => {
             />
             <Checkbox
               label="Este ano não posso ☹️"
+              style={{ marginTop: 12 }}
               name="presença"
               value="não"
               selected={yes === false}
@@ -94,28 +124,26 @@ const Form = () => {
             style={{
               display: "flex",
               flexDirection: "row",
+              flexWrap: "wrap",
               justifyContent: "space-between",
-              marginTop: 40,
             }}
           >
-            <TextField
+            <PhoneTextField
               name="telefone"
               type="tel"
               value={phone}
               onChange={setPhone}
               placeholder="Telemóvel"
-              style={{ display: "block", width: "35%" }}
             />
-            <TextField
+            <EmailTextField
               name="email"
               type="email"
               value={email}
               onChange={setEmail}
               placeholder="Email"
-              style={{ display: "block", width: "60%" }}
             />
           </div>
-        </div>
+        </Container>
         <Button type="submit" style={{ alignSelf: "flex-end", marginTop: 60 }}>
           Enviar
         </Button>

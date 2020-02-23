@@ -13,7 +13,7 @@ import Img from "gatsby-image"
  * - `useStaticQuery`: https://www.gatsbyjs.org/docs/use-static-query/
  */
 
-const TitleImage = () => {
+const TitleImage = props => {
   const data = useStaticQuery(graphql`
     query {
       placeholderImage: file(relativePath: { eq: "title-2x.png" }) {
@@ -28,6 +28,7 @@ const TitleImage = () => {
 
   return (
     <Img
+      {...props}
       fluid={data.placeholderImage.childImageSharp.fluid}
       fadeIn={false}
       loading="eager"
