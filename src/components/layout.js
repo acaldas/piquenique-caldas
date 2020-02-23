@@ -34,6 +34,10 @@ const StyledMainImage = styled(MainImage)`
   ${breakpoints.tablet} {
     height: 300px;
   }
+
+  ${breakpoints.mobile} {
+    height: 240px;
+  }
 `
 
 const RightSection = styled(Section)`
@@ -144,7 +148,17 @@ const Footer = styled.div`
   padding: 40px 4px;
 
   ${breakpoints.mobile} {
-    padding: 20px 2px;
+    padding: 22px 2px 8px 2px;
+  }
+`
+
+const YearImageContainer = styled.div`
+  margin-bottom: 40px;
+  width: 203px;
+  height: 46px;
+
+  ${breakpoints.mobile} {
+    margin-bottom: 20px;
   }
 `
 
@@ -185,11 +199,14 @@ const Layout = () => {
   return (
     <Container>
       <Section grow={1}>
-        <StyledMainImage onClick={() => setIndexCallback(0)} />
+        <StyledMainImage
+          onClick={() => setIndexCallback(0)}
+          imgStyle={{ objectPosition: "center top" }}
+        />
         <Footer>
-          <div style={{ marginBottom: 40, width: 203, height: 46 }}>
+          <YearImageContainer>
             <YearImage />
-          </div>
+          </YearImageContainer>
           <PremiumText>
             <i>~</i>
             <PremiumTextValue>Premium Edition</PremiumTextValue>
