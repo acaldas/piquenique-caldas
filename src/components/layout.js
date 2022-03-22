@@ -1,10 +1,3 @@
-/**
- * Layout component that queries for data
- * with Gatsby's useStaticQuery component
- *
- * See: https://www.gatsbyjs.org/docs/use-static-query/
- */
-
 import React, { useState, useCallback } from "react"
 import styled from "styled-components"
 import Section from "./section"
@@ -154,12 +147,21 @@ const Footer = styled.div`
 
 const YearImageContainer = styled.div`
   margin-bottom: 40px;
-  width: 203px;
-  height: 46px;
 
-  ${breakpoints.mobile} {
+  ${breakpoints.tablet} {
     margin-bottom: 20px;
   }
+`
+
+const YearText = styled.h2`
+  ${breakpoints.textXxl};
+  font-weight: 800;
+  margin-bottom: 0;
+  margin-right: 24px;
+  margin-left: 24px;
+  transition-property: font-size;
+  transition-timing-function: cubic-bezier(0.895, 0.03, 0.685, 0.22);
+  transition-duration: 0.25s;
 `
 
 const PremiumText = styled.h3`
@@ -205,7 +207,7 @@ const Layout = () => {
         />
         <Footer>
           <YearImageContainer>
-            <YearImage />
+            <YearText>2022</YearText>
           </YearImageContainer>
           <PremiumText>
             <i>~</i>
@@ -224,7 +226,7 @@ const Layout = () => {
           </TitleImageContainer>
           <DateTextContainer>
             <Rectangle />
-            <DateText open={openIndex === 1}>30 de MAIO</DateText>
+            <DateText open={openIndex === 1}>16 de JULHO</DateText>
             <Rectangle />
           </DateTextContainer>
         </Title>
