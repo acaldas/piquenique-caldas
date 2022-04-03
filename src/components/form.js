@@ -156,15 +156,12 @@ const Form = () => {
             placeholder="Nome"
             style={{ display: "block", width: "100%", order: 2 }}
           />
-          <HeaderText style={{ marginTop: 40 }}>
-            Quantas pessoas trazes?
-          </HeaderText>
+          <HeaderText style={{ marginTop: 40 }}>Vens com quem?</HeaderText>
           <TextField
             required
             name="pessoas"
             value={persons}
             onChange={setPersons}
-            placeholder="Não te esqueças de contar contigo"
             style={{ display: "block", width: "100%" }}
           />
           <HeaderText style={{ marginTop: 40 }}>Diz-nos quem és</HeaderText>
