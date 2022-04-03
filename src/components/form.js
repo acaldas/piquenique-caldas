@@ -12,6 +12,8 @@ const HeaderText = styled.h2`
 `
 
 const Container = styled.div`
+  display: flex;
+  flex-direction: column;
   margin-right: 60px;
   ${breakpoints.tablet} {
     margin-right: 0px;
@@ -55,20 +57,64 @@ const Button = styled.button`
   cursor: pointer;
 
   &:hover {
-    color: ${colors.dark};
+    background-color: ${colors.dark};
+  }
+
+  &:disabled {
+    background-color: ${colors.dark};
+    opacity: 0.7;
+    cursor: auto;
   }
 `
 
+const FormResult = styled.div`
+  height: 36px;
+  color: ${colors.white};
+`
+
+const encode = data => {
+  return Object.keys(data)
+    .map(key => encodeURIComponent(key) + "=" + encodeURIComponent(data[key]))
+    .join("&")
+}
+
 const Form = () => {
-  const [yes, setYes] = useState()
+  const [yes, setYes] = useState(true)
   const [persons, setPersons] = useState("")
   const [name, setName] = useState("")
   const [phone, setPhone] = useState("")
   const [email, setEmail] = useState("")
+  const [status, setStatus] = useState("INITIAL")
+
+  const handleSubmit = async e => {
+    e.preventDefault()
+    try {
+      const result = await fetch("/", {
+        method: "POST",
+        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        body: encode({
+          "form-name": "rsvp",
+          presença: yes,
+          pessoas: persons,
+          nome: name,
+          telefone: phone,
+          email: email,
+        }),
+      })
+      if (!result.ok) {
+        throw new Error(result.statusText)
+      }
+      setStatus("SUCCESS")
+    } catch (error) {
+      setStatus("ERROR")
+      console.error(error)
+    }
+  }
 
   return (
     <div>
       <form
+        onSubmit={handleSubmit}
         name="rsvp"
         method="POST"
         data-netlify="true"
@@ -102,10 +148,19 @@ const Form = () => {
               onClick={() => setYes(false)}
             />
           </div>
+          <TextField
+            required
+            name="nome"
+            value={name}
+            onChange={setName}
+            placeholder="Nome"
+            style={{ display: "block", width: "100%", order: 2 }}
+          />
           <HeaderText style={{ marginTop: 40 }}>
             Quantas pessoas trazes?
           </HeaderText>
           <TextField
+            required
             name="pessoas"
             value={persons}
             onChange={setPersons}
@@ -113,13 +168,6 @@ const Form = () => {
             style={{ display: "block", width: "100%" }}
           />
           <HeaderText style={{ marginTop: 40 }}>Diz-nos quem és</HeaderText>
-          <TextField
-            name="nome"
-            value={name}
-            onChange={setName}
-            placeholder="Nome"
-            style={{ display: "block", width: "100%" }}
-          />
           <div
             style={{
               display: "flex",
@@ -129,6 +177,7 @@ const Form = () => {
             }}
           >
             <PhoneTextField
+              required
               name="telefone"
               type="tel"
               value={phone}
@@ -136,6 +185,7 @@ const Form = () => {
               placeholder="Telemóvel"
             />
             <EmailTextField
+              required
               name="email"
               type="email"
               value={email}
@@ -144,10 +194,23 @@ const Form = () => {
             />
           </div>
         </Container>
-        <Button type="submit" style={{ alignSelf: "flex-end", marginTop: 60 }}>
+        <Button
+          type="submit"
+          style={{ alignSelf: "flex-end", marginTop: 60 }}
+          disabled={status === "SUCCESS"}
+        >
           Enviar
         </Button>
       </form>
+      <FormResult>
+        {status === "SUCCESS" ? (
+          <h2>Obrigado!</h2>
+        ) : status === "ERROR" ? (
+          <h2>Aconteceu um erro!</h2>
+        ) : (
+          ""
+        )}
+      </FormResult>
     </div>
   )
 }

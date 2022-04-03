@@ -6,7 +6,6 @@ import { Accordion, AccordionItem } from "./accordion"
 import "./layout.css"
 import { colors, breakpoints } from "../constants"
 import MainImage from "./image-main"
-import YearImage from "./image-year"
 import TitleImage from "./image-title"
 import Form from "./form"
 
