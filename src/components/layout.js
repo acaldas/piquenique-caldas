@@ -242,7 +242,7 @@ const Layout = () => {
             <Form />
           </StyledAccordionItem>
           <StyledAccordionItem
-            title="Local (brevemente)"
+            title="Local: Vila do Conde"
             background={colors.light}
           />
           <StyledAccordionItem
